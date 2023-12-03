@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.Random;
 
 public class ChargingSimulator {
-    private static final int numberChargingStations = 5; // Adjust as needed
+    private static final int numberOfChargingStations = 5; // Adjust as needed
     private static final int maxWaitingTime = 15 * 60 * 1000; // 15 minutes in milliseconds
     private static final int maxSimulationVehicles = 15; // Adjust as needed
     
@@ -14,8 +14,8 @@ public class ChargingSimulator {
     private volatile boolean stopSimulation = false;
     
     public ChargingSimulator() {
-        chargingStations = new ChargingStation[numberChargingStations];
-        for (int i = 0; i < numberChargingStations; i++) {
+        chargingStations = new ChargingStation[numberOfChargingStations];
+        for (int i = 0; i < numberOfChargingStations; i++) {
             chargingStations[i] = new ChargingStation(1); // Each station can charge 1 vehicle
 //            chargingStations[i] = new ChargingStation(2); // Each station can charge 2 vehicle
         }
@@ -25,7 +25,7 @@ public class ChargingSimulator {
     	
     	//using ExecutorService for parallel execution
     	
-        ExecutorService executorService = Executors.newFixedThreadPool(numberChargingStations);
+        ExecutorService executorService = Executors.newFixedThreadPool(numberOfChargingStations);
 
         // Start a thread to generate vehicles randomly
         executorService.submit(() -> {
@@ -51,7 +51,7 @@ public class ChargingSimulator {
         });
 
         // Start threads to simulate charging
-        for (int i = 0; i < numberChargingStations; i++) {
+        for (int i = 0; i < numberOfChargingStations; i++) {
             int stationNumber = i;
             executorService.submit(() -> {
                 while (!stopSimulation) {
