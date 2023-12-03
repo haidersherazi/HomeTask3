@@ -7,6 +7,7 @@ import java.util.Random;
 public class ChargingSimulator {
     private static final int numberOfChargingStations = 5; // Adjust as needed but currently there are 5 
     private static final int maxWaitingTime = 15 * 60 * 1000; // 15 minutes in milliseconds
+//    private static final int maxWaitingTime = 1000; //use 1 second time to run the queue leaving use case too of the vehicle
     private static final int maxSimulationVehicles = 15; // Adjust as needed but currently there are 15 vehicles
     
     private Queue<Vehicle> waitingQueue = new LinkedList<>();
@@ -33,7 +34,7 @@ public class ChargingSimulator {
             int vehicleCount = 0;
             while (!stopSimulation) {
                 try {
-                    Thread.sleep(random.nextInt(5000)); // Random arrival time
+                    Thread.sleep(random.nextInt(5000)); // Random arrival time from 0 to 5 seconds
                     Vehicle vehicle = new Vehicle(vehicleCount + 1);
                     synchronized (waitingQueue) {
                         waitingQueue.add(vehicle);
@@ -64,7 +65,8 @@ public class ChargingSimulator {
                         }
                     }
 
-                    long waitingTime = System.currentTimeMillis() - vehicle.getArrivalTime();
+                    // waiting time calculation
+                    long waitingTime = System.currentTimeMillis() - vehicle.getArrivalTime(); 
                     
                     if (waitingTime > maxWaitingTime) {
                     	
