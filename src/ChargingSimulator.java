@@ -5,9 +5,9 @@ import java.util.concurrent.Executors;
 import java.util.Random;
 
 public class ChargingSimulator {
-    private static final int numberOfChargingStations = 5; // Adjust as needed
+    private static final int numberOfChargingStations = 5; // Adjust as needed but currently there are 5 
     private static final int maxWaitingTime = 15 * 60 * 1000; // 15 minutes in milliseconds
-    private static final int maxSimulationVehicles = 15; // Adjust as needed
+    private static final int maxSimulationVehicles = 15; // Adjust as needed but currently there are 15 vehicles
     
     private Queue<Vehicle> waitingQueue = new LinkedList<>();
     private ChargingStation[] chargingStations;
@@ -65,10 +65,15 @@ public class ChargingSimulator {
                     }
 
                     long waitingTime = System.currentTimeMillis() - vehicle.getArrivalTime();
+                    
                     if (waitingTime > maxWaitingTime) {
+                    	
                         System.out.println("Vehicle number " + vehicle.getId() + " waited too long and left the queue.");
+                        
                     } else {
+                    	
                         boolean charged = chargingStations[stationNumber].chargeVehicle();
+                        
                         if (charged) {
                             System.out.println("Vehicle number " + vehicle.getId() + " is charging at Station number " + (stationNumber + 1) +
                                     "  (Waiting time: " + waitingTime / 1000 + " seconds)");
@@ -77,7 +82,9 @@ public class ChargingSimulator {
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            
                             chargingStations[stationNumber].releaseStation();
+                            
                             System.out.println("Vehicle number " + vehicle.getId() + " finished charging at Station number " + (stationNumber + 1));
                         }
                     }
