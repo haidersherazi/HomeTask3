@@ -1,5 +1,6 @@
 
 class Vehicle {
+	
 	private int id;
 	private long arrivalTime;
 
